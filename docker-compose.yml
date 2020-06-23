@@ -9,3 +9,15 @@ services:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+  web-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - '3000:3000'
+    restart: on-failure
+    container_name: web-app
+    tty: true
