@@ -6,5 +6,5 @@ COPY package*.json .
 RUN yarn install
 # Copy the contents of the project to the image
 COPY . .
-# Run 'npm start' when the container starts.
+# Run 'yarn start' when the container starts.
 CMD ["yarn", "run", "start"]
