@@ -9,7 +9,7 @@ services:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-  web-app:
+  client:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
