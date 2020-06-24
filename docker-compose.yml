@@ -12,12 +12,25 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     volumes:
-      - /app/node_modules
-      - ./client:/app
+      - /app/client/node_modules
+      - ./client:/app/client/
     ports:
       - '3000:3000'
     restart: on-failure
     container_name: web-app
     tty: true
+  api:
+    image: express-api
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    ports:
+      - "8000:8000"
+    tty: true
+networks:
+  backend:
+    driver: bridge
