@@ -5,6 +5,7 @@ services:
     image: postgres
     ports:
       - 5432:5432
+    container_name: db
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
@@ -29,7 +30,8 @@ services:
     networks:
       - backend
     ports:
-      - "8000:8000"
+      - "3333:3333"
+    container_name: api
     tty: true
 networks:
   backend:
