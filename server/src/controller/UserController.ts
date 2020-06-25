@@ -16,7 +16,7 @@ export function save(request: Request, response: Response, next: NextFunction) {
 }
 
 export function remove(request: Request, response: Response, next: NextFunction) {
-  let userToRemove =  getConnection().getRepository(User).findOne(request.params.id);
-  return getConnection().getRepository(User).remove(userToRemove);
+  // let userToRemove =  getConnection().getRepository(User).findOne(request.params.id);
+  // return getConnection().getRepository(User).remove(userToRemove);
   }
 

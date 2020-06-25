@@ -13,8 +13,7 @@ createConnection()
     app.use(bodyParser.json());
 
     // register express routes from defined application routes
-    // app.use(routes);
-    const userRepository = connection.getRepository(User);
+    app.use(routes);
     // start express server
     app.listen(3333);
 
