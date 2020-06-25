@@ -1,26 +1,22 @@
-import { getRepository } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/User";
 
-class UserController {
-  private userRepository = getRepository(User);
 
-  async all(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.find();
-  }
-
-  async one(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.findOne(request.params.id);
-  }
-
-  async save(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.save(request.body);
-  }
-
-  async remove(request: Request, response: Response, next: NextFunction) {
-    let userToRemove = await this.userRepository.findOne(request.params.id);
-    await this.userRepository.remove(userToRemove);
-  }
+export function all(request: Request, response: Response, next: NextFunction) {
+  return getConnection().getRepository(User).find();
 }
 
-export default new UserController();
+export function one(request: Request, response: Response, next: NextFunction) {
+  return getConnection().getRepository(User).findOne(request.params.id);
+}
+
+export function save(request: Request, response: Response, next: NextFunction) {
+  return getConnection().getRepository(User).save(request.body);
+}
+
+export function remove(request: Request, response: Response, next: NextFunction) {
+  let userToRemove =  getConnection().getRepository(User).findOne(request.params.id);
+  return getConnection().getRepository(User).remove(userToRemove);
+  }
+

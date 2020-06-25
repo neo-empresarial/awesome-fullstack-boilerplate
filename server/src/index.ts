@@ -4,6 +4,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { Request, Response } from "express";
 import routes from "./routes";
+import { User } from "./entity/User";
 
 createConnection()
   .then(async (connection) => {
@@ -12,8 +13,8 @@ createConnection()
     app.use(bodyParser.json());
 
     // register express routes from defined application routes
-    app.use(routes);
-
+    // app.use(routes);
+    const userRepository = connection.getRepository(User);
     // start express server
     app.listen(3333);
 
