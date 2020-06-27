@@ -27,12 +27,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    networks:
-      - backend
     ports:
       - "3333:3333"
+    command: "yarn start:dev"
     container_name: api
     tty: true
-networks:
-  backend:
-    driver: bridge
