@@ -1,6 +1,22 @@
 version: "3.1"
 
 services:
+  server:
+    container_name: api
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - DB_HOST=db
+    ports:
+      - 3333:3333
+    command: yarn --cwd ./server start:dev
+    depends_on:
+      - db
+    tty: true
   db:
     container_name: db
     image: postgres
