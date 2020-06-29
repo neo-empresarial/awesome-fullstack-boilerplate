@@ -1,6 +1,15 @@
 version: "3.1"
 
 services:
+  db:
+    container_name: db
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
   server:
     container_name: api
     build:
@@ -17,12 +26,15 @@ services:
     depends_on:
       - db
     tty: true
-  db:
-    container_name: db
-    image: postgres
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - /app/client/node_modules
+      - ./client:/app/client/
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_DB: db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      - '3000:3000'
+    restart: on-failure
+    tty: true
