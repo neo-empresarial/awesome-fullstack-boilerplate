@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -13,12 +13,18 @@ import { CreateUserDto } from './dto/create-user.dto';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  @ApiOperation({ summary: 'Create new user.' })
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.create(createUserDto);
+  }
 
   @Get()
   @ApiOperation({ summary: 'Find all users.' })
   async findAll(): Promise<User[]> {
-    return this.userService.findAll();
+    return this.usersService.findAll();
   }
 
   @Get(':id')
@@ -29,12 +35,11 @@ export class UsersController {
     type: User,
   })
   async findOne(@Param('id') id: string): Promise<User> {
-    return this.userService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
-  @Post('create')
-  @ApiOperation({ summary: 'Create new user.' })
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.create(createUserDto);
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<void> {
+    return this.usersService.remove(id);
   }
 }

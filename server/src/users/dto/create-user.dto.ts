@@ -1,11 +1,7 @@
-import { IsEmpty, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
-  @IsEmpty()
-  @IsInt()
-  @ApiProperty()
-  readonly id: number;
 
   @IsNotEmpty()
   @IsString()
