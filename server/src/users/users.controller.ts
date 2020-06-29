@@ -21,12 +21,6 @@ export class UsersController {
     return this.userService.findAll();
   }
 
-  @Post('create')
-  @ApiOperation({ summary: 'Create new user.' })
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.create(createUserDto);
-  }
-
   @Get(':id')
   @ApiOperation({ summary: 'Find one specific user.' })
   @ApiResponse({
@@ -34,7 +28,13 @@ export class UsersController {
     description: 'The found record',
     type: User,
   })
-  findOne(@Param('id') id: string): User {
+  async findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(+id);
+  }
+
+  @Post('create')
+  @ApiOperation({ summary: 'Create new user.' })
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.userService.create(createUserDto);
   }
 }
